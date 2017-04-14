@@ -15,77 +15,65 @@
 	        <p>wins: 0 </p>
 	        <p>losses: 0 </p> 
 	        <p>guesses: 9 </p>
+            
 </div>
 
+<p id="incorrect-line">Incorrect Keys Guessed: <span id="span-remaining"></span></p>
 
 <script type="text/javascript">
-
 //// Declare Variables
-
 var wins = 0;
 var losses = 0;
 var guesses = 9;
-
 var alphebet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-
 var randomNum = Math.floor(Math.random() * alphebet.length);
-
 var compChoice = alphebet[randomNum];
-
 // Declare Functions
-
 function resetLose(){
-	losses++;
-	guesses = 9;
-	compChoice = alphebet[randomNum];
+    losses++;
+    guesses = 9;
+    compChoice = alphebet[randomNum];
 }
-
 function resetWin(){
-	compChoice = alphebet[randomNum];
+    compChoice = alphebet[randomNum];
 }
-
-
 // Game functionality markup
-
  document.onkeyup = function(event) {
-
         var userGuess = event.key;
         
-
         if(userGuess == compChoice){
+            wins++;
 
-        	wins++;
+            alert('You Won');
 
-        	resetWin();
-        	
+            resetWin();
+            
         } else {
+            guesses--;
 
-        	guesses--;
+            var oldSpan = document.getElementById("span-remaining");
+			var newSpan = document.createElement("span");
+				newSpan.innerHTML = " " + userGuess;
+				oldSpan.appendChild(newSpan);
 
-        	if(guesses <= 0){
+            if(guesses <= 0){
 
-        	resetLose();
+            alert("You lose");
 
-        	}
-						
+            resetLose();
+            }
+                        
         }
-
     /// Posts updated game information to html document
         
     var html = "<h1>Guess what letter i'm thinking of!</h1>" +
-	           "<p>wins: " + wins + "</p>" +
-	           "<p>losses: " + losses + "</p>" +
-	           "<p>guesses: " + guesses + "</p>";
-
-	document.getElementById("game").innerHTML = html;    
-
-
+               "<p>wins: " + wins + "</p>" +
+               "<p>losses: " + losses + "</p>" +
+               "<p>guesses: " + guesses + "</p>";
+    document.getElementById("game").innerHTML = html;    
     };
-
-
-
-
 </script>
+
 
 </body>
 
